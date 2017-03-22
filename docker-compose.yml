@@ -10,8 +10,8 @@ services:
       MYSQL_USER: dbuser
       MYSQL_PASSWORD: dbpassword
       MYSQL_ROOT_PASSWORD: dbrootpassword
-      MYSQL_DATABASE: koryoukin
-      MYSQL_DATABASE: host
+      MYSQL_DATABASE: site1
+      MYSQL_DATABASE: site2
 
   phpmyadmin:
     depends_on:

@@ -1,2 +1,2 @@
-FROM mysql:5.7
+FROM mysql
 COPY ./my.cnf /etc/mysql/conf.d/

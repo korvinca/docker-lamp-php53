@@ -15,9 +15,9 @@ Apache listen on port 80 and 443.
 Web application is placed in /var/www/virtual_name/.
 
 # Usage
-git clone https://github.com/korvinca/docker-lamp-php5.3.git
+git clone https://github.com/korvinca/docker-lamp-php53.git
 
-cd docker-lamp-php5.3/
+cd docker-lamp-php53/
 
 docker-compose up -d
 
