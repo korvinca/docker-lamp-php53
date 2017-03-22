@@ -1,0 +1,33 @@
+<VirtualHost *:80>
+    ServerName site1.example.com
+    ServerAlias www.site1.example.ru
+    ServerAdmin webmaster@localhost
+    DocumentRoot /var/www/site1
+    ErrorLog /var/www/log/error_site1.log
+    CustomLog /var/www/log/access_site1.log combined
+    LogLevel warn
+    php_admin_value open_basedir "/var/www/site1/:."
+#    php_admin_value safe_mode "on"
+    php_admin_value upload_tmp_dir "/var/www/site1/tmp"
+    php_admin_value session.save_path "/var/www/site1/tmp"
+    <Directory /var/www/site1>
+        AllowOverride All
+        Order allow,deny
+        Allow from all
+    </Directory>
+#    ErrorLog /dev/stdout
+#    CustomLog /dev/stdout combined
+</VirtualHost>
+
+<VirtualHost *:80>
+    ServerName site2.example.ru
+    ServerAlias www.site2.example.ru
+    DocumentRoot /var/www/site2
+    ErrorLog /var/www/log/error_site2.log
+    CustomLog /var/www/log/access_site2.log combined
+    LogLevel warn
+    php_admin_value open_basedir "/var/www/site2/:."
+#    php_admin_value safe_mode "on"
+    php_admin_value upload_tmp_dir "/var/www/site2/tmp"
+    php_admin_value session.save_path "/var/www/site2/tmp"
+</VirtualHost>
