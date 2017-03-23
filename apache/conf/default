@@ -3,13 +3,13 @@
     ServerAlias www.site1.example.ru
     ServerAdmin webmaster@localhost
     DocumentRoot /var/www/site1
-    ErrorLog /var/www/log/error_site1.log
-    CustomLog /var/www/log/access_site1.log combined
+    ErrorLog /var/www/logs/error_site1.log
+    CustomLog /var/www/logs/access_site1.log combined
     LogLevel warn
     php_admin_value open_basedir "/var/www/site1/:."
 #    php_admin_value safe_mode "on"
-    php_admin_value upload_tmp_dir "/var/www/site1/tmp"
-    php_admin_value session.save_path "/var/www/site1/tmp"
+    php_admin_value upload_tmp_dir "/var/www/tmp"
+    php_admin_value session.save_path "/var/www/tmp"
 #    ErrorLog /dev/stdout
 #    CustomLog /dev/stdout combined
 </VirtualHost>
@@ -18,11 +18,11 @@
     ServerName site2.example.com
     ServerAlias www.site2.example.com
     DocumentRoot /var/www/site2
-    ErrorLog /var/www/log/error_site2.log
-    CustomLog /var/www/log/access_site2.log combined
+    ErrorLog /var/www/logs/error_site2.log
+    CustomLog /var/www/logs/access_site2.log combined
     LogLevel warn
     php_admin_value open_basedir "/var/www/site2/:."
 #    php_admin_value safe_mode "on"
-    php_admin_value upload_tmp_dir "/var/www/site2/tmp"
-    php_admin_value session.save_path "/var/www/site2/tmp"
+    php_admin_value upload_tmp_dir "/var/www/tmp"
+    php_admin_value session.save_path "/var/www/tmp"
 </VirtualHost>
