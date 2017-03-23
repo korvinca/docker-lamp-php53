@@ -1,10 +1,14 @@
 version: '2'
 
 services:
+  data:
+    build: db-dump/.
+
   mysql:
     image: mysql
     volumes:
-     - db_data:/var/lib/mysql
+      - db_data:/var/lib/mysql
+      - ./db-dump:/docker-entrypoint-initdb.d
     restart: always
     environment:
       MYSQL_USER: dbuser
@@ -12,6 +16,8 @@ services:
       MYSQL_ROOT_PASSWORD: dbrootpassword
       MYSQL_DATABASE: site1
       MYSQL_DATABASE: site2
+    ports:
+      - "3306:3306"
 
   phpmyadmin:
     depends_on:
@@ -23,7 +29,7 @@ services:
       PMA_HOST: mysql
       PMA_PORT: 3306
     ports:
-      - '8080:80'
+      - "8080:80"
 
   apache2:
     depends_on:
@@ -32,7 +38,7 @@ services:
     links:
       - mysql
     ports:
-      - '80:80'
+      - "80:80"
     volumes:
       - ./apache/www:/var/www
       - ./apache/conf:/etc/apache2/sites-available/

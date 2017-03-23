@@ -19,12 +19,22 @@ git clone https://github.com/korvinca/docker-lamp-php53.git
 
 cd docker-lamp-php53/
 
+docker-compose build
+
 docker-compose up -d
 
-# For test apache: 
+# For test apache (make changes in default): 
 
 cd docker-lamp-php53/apache
 
 docker build --no-cache -t apache .
 
 docker run -d -p 80:80 -v ~/docker-lamp-php53/apache/www/:/var/www apache-test
+
+# Usede web sites
+
+http://site.example.com
+
+http://site.example.com
+
+http://IP_ADDRESS:8080 - phpMyAdmin
