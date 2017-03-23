@@ -38,3 +38,13 @@ http://site.example.com
 http://site.example.com
 
 http://IP_ADDRESS:8080 - phpMyAdmin
+
+# Setup access to MySQL
+
+copy db_site1.sql and db_site1.sql in ./db-dump folder
+
+docker network ls
+
+docker network inspect dockerlampphp53_default
+
+Host_name dockerlampphp53_mysql_1

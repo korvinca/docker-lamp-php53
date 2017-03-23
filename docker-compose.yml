@@ -1,9 +1,6 @@
 version: '2'
 
 services:
-  data:
-    build: db-dump/.
-
   mysql:
     image: mysql
     volumes:
