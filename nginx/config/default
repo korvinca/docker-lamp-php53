@@ -1,11 +1,18 @@
 server {
-        listen 80;
+        listen 80 site.example.com;
+        listen [::]:80 site.example.com ipv6only=on;
+
+        root /usr/share/nginx/html;
+        index index.html index.htm;
+
+        # Make site accessible from http://localhost/
+        site.example.com localhost;
+
         location / {
-            proxy_pass         http://app_servers;
-            proxy_redirect     off;
-            proxy_set_header   Host $host;
-            proxy_set_header   X-Real-IP $remote_addr;
-            proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_set_header   X-Forwarded-Host $server_name;
+                # First attempt to serve request as file, then
+                # as directory, then fall back to displaying a 404.
+                try_files $uri $uri/ /index.html;
+                # Uncomment to enable naxsi on this location
+                # include /etc/nginx/naxsi.rules
         }
-    }
+}
