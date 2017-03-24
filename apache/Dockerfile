@@ -9,8 +9,9 @@ RUN echo "America/Los_Angeles" > /etc/timezone && \
 ENV DEBIAN_FRONTEND noninteractive
 ENV DEBIAN_FRONTEND teletype
 
-RUN apt-get update && apt-get install -y apache2 && \
-    a2enmod rewrite
+RUN apt-get update && \
+    apt-get install -y sendmail \
+    apache2 && a2enmod rewrite
 
 ENV APACHE_RUN_USER www-data
 ENV APACHE_RUN_GROUP www-data
