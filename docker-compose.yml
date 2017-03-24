@@ -11,8 +11,7 @@ services:
       MYSQL_USER: dbuser
       MYSQL_PASSWORD: dbpassword
       MYSQL_ROOT_PASSWORD: dbrootpassword
-      MYSQL_DATABASE: site1
-      MYSQL_DATABASE: site2
+      MYSQL_DATABASE: host
     ports:
       - "3306:3306"
 
