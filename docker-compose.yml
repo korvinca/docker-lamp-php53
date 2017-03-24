@@ -34,10 +34,18 @@ services:
     links:
       - mysql
     ports:
-      - "80:80"
+      - "88:80"
     volumes:
       - ./apache/www:/var/www
       - ./apache/conf:/etc/apache2/sites-available/
+
+  nginx:
+    build: ./nginx/
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/conf:/etc/nginx/sites-available/
+      - ./nginx/logs:/var/log/nginx/
 
 volumes:
     db_data:
