@@ -1,5 +1,5 @@
 # docker-lamp-php53
-docker-compose: apache2, php5.3, mysql, phpmyadmin, nginx-proxy
+docker-compose: apache2, php5.3, mysql, phpmyadmin, nginx-proxy, mysql-backup, www-backup
 
 # Overview
 
@@ -11,7 +11,7 @@ Apache, PHP5, MySQL, phpMyAdmin is installed.
 
 Avaliable php5 modules are php5-gd, php5-mysql, php5-curl, php5-json, php5-mcrypt.
 
-Apache listen on port 80 and 443.
+Apache listen on port 80.
 Web application is placed in /var/www/virtual_name/.
 
 # Usage docker-compose images
@@ -33,18 +33,16 @@ docker run -d -p 80:80 -v ~/docker-lamp-php53/apache/www/:/var/www apache-test
 
 # Usede web sites
 
-http://site.example.com
+http://site1.com
 
-http://site.example.com
+http://site2.com
 
-http://IP_ADDRESS:8080 - phpMyAdmin
+http://IP_ADDRESS:89 - phpMyAdmin
 
 # Setup access to MySQL
-
-copy db_site1.sql and db_site1.sql in ./db-dump folder
 
 docker network ls
 
 docker network inspect dockerlampphp53_default
 
-Host_name dockerlampphp53_mysql_1
+for access to mysql container use Host_name dockerlampphp53_mysql_1
