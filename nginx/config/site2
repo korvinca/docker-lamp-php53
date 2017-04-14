@@ -1,0 +1,19 @@
+server {
+    listen 80;
+    server_name site2.ru www.site2.ru;
+    root /var/www/site2;
+    access_log /var/log/nginx/site2_access.log;
+    error_log /var/log/nginx/site2_error.log;
+
+    location / {
+        proxy_set_header X-Real-IP  $remote_addr;
+        proxy_set_header X-Forwarded-For $remote_addr;
+        proxy_set_header Host $host;
+        proxy_pass http://webserver_apache2_1:80;
+    }
+
+    location ~* ^.+\.(jpg|jpeg|gif|png|css|zip|pdf|txt|js)$ { }
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location = /robots.txt { access_log off; log_not_found off; }        
+    location ~ /\. { deny all; access_log off; log_not_found off; }
+}

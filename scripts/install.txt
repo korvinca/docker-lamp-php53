@@ -1,0 +1,87 @@
+Install docker CE on Ubuntu 14/16
+
+On clear Ubuntu 14 host under user with sudo permission in the user home directory
+
+sudo su
+echo "America/Los_Angeles" > /etc/timezone
+dpkg-reconfigure -f noninteractive tzdata
+exit
+
+sudo apt-get -y install apt-transport-https ca-certificates curl software-properties-common unzip htop
+
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+
+sudo apt-get update
+
+sudo apt-get -y install docker-ce
+
+sudo usermod -aG docker $USER
+
+sudo apt-get -y install python-pip
+
+sudo pip install docker-compose
+
+Firewall
+sudo nano /etc/default/ufw
+DEFAULT_FORWARD_POLICY="ACCEPT"
+
+sudo ufw allow 22/tcp
+sudo ufw allow 80/tcp
+sudo ufw allow 89/tcp
+
+sudo ufw enable
+
+sudo nano /etc/ufw/before.rules
+# Add these lines JUST BEFORE “*filter”. where "172.18.0.0" is docker vlan
+*nat
+:POSTROUTING ACCEPT [0:0]
+-A POSTROUTING ! -o docker0 -s 172.18.0.0/16 -j MASQUERADE
+COMMIT
+
+sudo ufw reload
+
+# disable adding docker rules in iptables. Use local DNS server
+sudo nano /etc/default/docker
+DOCKER_OPTS="--dns 8.8.8.8 --dns 8.8.8.8 --iptables=false" 
+
+sudo service docker restart
+
+# reboot
+sudo init 6
+
+WEB
+
+sudo mkdir /var/www/site1
+sudo mkdir /var/www/site2
+
+# optional, extract your web sites to /var/www/site1 and /var/www/site2
+
+# tar xvzf site1.gz 
+
+sudo chown -R www-data:www-data /var/www/
+
+#Change permission for read-only 
+sudo find /var/www/ -type d -exec chmod 555 {} +
+sudo find /var/www/ -type f -exec chmod 444 {} +
+
+# Docker-compose
+cd web-server
+docker-compose rm --all && docker-compose pull && 
+docker-compose build --no-cache && docker-compose up -d
+
+# Connect to container
+docker exec -i -t aaaaaa /bin/bash
+
+# UFW disabe/enable access to phpmyadmin from internet
+sudo ufw status numbered
+sudo ufw delete 3
+sudo ufw allow 89
+
+# Backup
+cd ~/web-server/mysql_backup
+docker build --no-cache=true -t mysql-backup -f .
+docker run --rm --name mysql-backup --net webserver_default -v /home/username/backup:/backup mysql-backup
+docker run --name mysql-backup --net webserver_default -v /home/username/backup:/backup mysql-backup
+docker start mysql-backup

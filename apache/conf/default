@@ -1,28 +1,29 @@
 <VirtualHost *:80>
-    ServerName site1.example.com
-    ServerAlias www.site1.example.ru
+    ServerName site1.ru
+    ServerAlias www.site1.ru
     ServerAdmin webmaster@localhost
     DocumentRoot /var/www/site1
-    ErrorLog /var/www/logs/error_site1.log
-    CustomLog /var/www/logs/access_site1.log combined
-    LogLevel warn
+    ErrorLog /var/log/apache2/site1_error.log
+    CustomLog /var/log/apache2/site1_access.log combined
+    LogLevel info
     php_admin_value open_basedir "/var/www/site1/:."
-#    php_admin_value safe_mode "on"
-    php_admin_value upload_tmp_dir "/var/www/tmp"
-    php_admin_value session.save_path "/var/www/tmp"
+    php_admin_value safe_mode "on"
+    php_admin_value upload_tmp_dir "/tmp"
+    php_admin_value session.save_path "/tmp"
 #    ErrorLog /dev/stdout
 #    CustomLog /dev/stdout combined
 </VirtualHost>
 
 <VirtualHost *:80>
-    ServerName site2.example.com
-    ServerAlias www.site2.example.com
+    ServerName site2.ru
+    ServerAlias www.site2.ru
+    ServerAdmin webmaster@localhost
     DocumentRoot /var/www/site2
-    ErrorLog /var/www/logs/error_site2.log
-    CustomLog /var/www/logs/access_site2.log combined
-    LogLevel warn
-    php_admin_value open_basedir "/var/www/site2/:."
-#    php_admin_value safe_mode "on"
-    php_admin_value upload_tmp_dir "/var/www/tmp"
-    php_admin_value session.save_path "/var/www/tmp"
+    ErrorLog /var/log/apache2/site2_error.log
+    CustomLog /var/log/apache2/site2_access.log combined
+    LogLevel info
+    php_admin_value open_basedir "/var/www/site1/:."
+    php_admin_value safe_mode "on"
+    php_admin_value upload_tmp_dir "/tmp"
+    php_admin_value session.save_path "/tmp"
 </VirtualHost>

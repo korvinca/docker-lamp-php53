@@ -10,10 +10,10 @@ services:
     environment:
       MYSQL_USER: dbuser
       MYSQL_PASSWORD: dbpassword
-      MYSQL_ROOT_PASSWORD: dbrootpassword
+      MYSQL_ROOT_PASSWORD: rootpassword
       MYSQL_DATABASE: host
-    ports:
-      - "3306:3306"
+#    ports:
+#      - "3306:3306"
 
   phpmyadmin:
     depends_on:
@@ -21,11 +21,12 @@ services:
     image: phpmyadmin/phpmyadmin
     links:
       - mysql
+    restart: always
     environment:
       PMA_HOST: mysql
       PMA_PORT: 3306
     ports:
-      - "8080:80"
+      - "89:80"
 
   apache2:
     depends_on:
@@ -33,20 +34,28 @@ services:
     build: ./apache/
     links:
       - mysql
+    restart: always
     ports:
       - "88:80"
     volumes:
-      - ./apache/www:/var/www
       - ./apache/conf:/etc/apache2/sites-available/
+      - /var/www:/var/www
+      - ../log/apache2:/var/log/apache2
+      - ../tmp:/tmp
 
   nginx:
     build: ./nginx/
-    restart: always
     ports:
-      - "80:80"
+        - "80:80"
+    links:
+      - apache2
+      - mysql
+      - phpmyadmin
+    restart: always
     volumes:
-      - ./nginx/conf:/etc/nginx/sites-available/
-      - ./nginx/logs:/var/log/nginx/
+      - ./nginx/config:/etc/nginx/sites-enabled/
+      - ../log/nginx:/var/log/nginx
+      - /var/www:/var/www
 
 volumes:
     db_data:

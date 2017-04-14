@@ -18,9 +18,9 @@ ENV APACHE_RUN_USER www-data
 ENV APACHE_RUN_GROUP www-data
 ENV APACHE_LOG_DIR /var/log/apache2
 
-#COPY /conf/default /etc/apache2/sites-available/default
 COPY /run.sh /usr/local/bin/run.sh
 RUN chmod +x /usr/local/bin/run.sh
+#COPY /conf/default /etc/apache2/sites-available/default
 
 RUN apt-get install -y php5 \
     libapache2-mod-php5 \
