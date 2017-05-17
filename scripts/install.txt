@@ -81,7 +81,12 @@ sudo ufw allow 89
 
 # Backup
 cd ~/web-server/mysql_backup
-docker build --no-cache=true -t mysql-backup -f .
-docker run --rm --name mysql-backup --net webserver_default -v /home/username/backup:/backup mysql-backup
-docker run --name mysql-backup --net webserver_default -v /home/username/backup:/backup mysql-backup
+# Add DB in backup.sh or change backup.sh
+# Build image
+docker build --no-cache=true -t mysql-backup .
+# Run for test and remove canteiner
+docker run --rm --name mysql-backup --net webserver_default -v ~/backup:/backup mysql-backup
+# Run and create container
+docker run --name mysql-backup --net webserver_default -v ~/backup:/backup mysql-backup
+# Run in cron pereodicaly
 docker start mysql-backup
